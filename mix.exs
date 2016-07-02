@@ -1,4 +1,4 @@
-defmodule Cldr.Mixfile do
+defmodule CLDR.Mixfile do
   use Mix.Project
 
   def project do
