@@ -12,6 +12,7 @@ defmodule CLDRex.Data do
   def main_data do
     @main_path
       |> File.ls!
+      |> Enum.take(1)
       |> process_files
   end
 
@@ -30,12 +31,14 @@ defmodule CLDRex.Data do
       |> String.replace(~r/(<!DOCTYPE ldml SYSTEM ").*?(">)/, "\\1#{@ldml_path}\\2")
 
     display_pattern = extract_display_pattern(doc)
-    data = extract_languages(doc)
+    languages = extract_languages(doc)
+    territories = extract_territories(doc)
     locale = build_locale_from_file(file)
 
     Map.put(%{}, locale, %{
       display_pattern: display_pattern,
-      languages: data
+      languages: languages,
+      territories: territories
     })
   end
 
@@ -54,6 +57,29 @@ defmodule CLDRex.Data do
       lng = l.language |> to_string
       Map.put(acc, loc, lng)
     end)
+  end
+
+  defp extract_territories(doc) do
+    doc
+    |> xpath(~x"//territories/territory"l,
+      un_code: ~x"./@type", name: ~x"./text()")
+    |> Enum.reduce(%{}, fn(l, acc) ->
+      code = l.un_code |> to_string |> String.to_atom
+      name = l.name |> to_string
+      Map.put(acc, code, name)
+    end)
+  end
+
+  defp extract_calendar(doc) do
+    doc
+    |> xpath(~x"//dates/calendars/calendar[@type='gregorian']/")
+    |> inspect
+    |> IO.puts
+    # |> Enum.reduce(%{}, fn(l, acc) ->
+    #   code = l.un_code |> to_string |> String.to_atom
+    #   name = l.name |> to_string
+    #   Map.put(acc, code, name)
+    # end)
   end
 
   defp build_locale_from_file(file) do
