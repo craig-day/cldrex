@@ -1,8 +1,7 @@
 defmodule CLDRex.Utils do
-  @moduledoc """
+  @moduledoc false
 
-  """
-
+  @doc false
   def normalize_locale(locale) when is_binary(locale) do
     locale
     |> String.replace("-", "_")
@@ -10,12 +9,14 @@ defmodule CLDRex.Utils do
     |> String.to_atom
   end
 
+  @doc false
   def normalize_locale(locale) do
     locale
     |> to_string
     |> normalize_locale
   end
 
+  @doc false
   def fallback(locale) do
     locale
     |> normalize_locale

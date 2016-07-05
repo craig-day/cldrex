@@ -1,6 +1,6 @@
 # CLDRex
 
-:warning: This is still a WIP.  Many of the features are not implemented yet, but are being actively developed.
+⚡ This is still a WIP.  Many of the features are not implemented yet, but are being actively developed.
 
 CLDRex uses Unicode's Common Locale Data Repository (CLDR) to localize text.
 
@@ -24,25 +24,25 @@ This project takes many hints and guidance from [TwitterCldr](https://github.com
 
 The following data from the CLDR is supported.
 
-| Key                | Meaning           |
-| -------------      | -------------     |
-| :white_check_mark: | Supported         |
-| :warning:          | In Progress       |
-| :no_entry_sign:    | Not Yet Supported |
+| Key | Meaning           |
+| --- | -------------     |
+| ✅ | Supported         |
+| ⚡ | In Progress       |
+| ❌ | Not Yet Supported |
 
-  - Languages Names :white_check_mark:
+  - Languages Names ✅
   - Calendar
-      - Months :white_check_mark:
-      - Days :warning:
-      - Quarters :no_entry_sign:
-      - Day Periods :no_entry_sign:
-  - Dates :no_entry_sign:
-  - Times :no_entry_sign:
+      - Months ✅
+      - Days ⚡
+      - Quarters ❌
+      - Day Periods ❌
+  - Dates ❌
+  - Times ❌
   - Numbers
-      - Basic :no_entry_sign:
-      - Currency :no_entry_sign:
-      - Percent :no_entry_sign:
-      - Decimal :no_entry_sign:
+      - Basic ❌
+      - Currency ❌
+      - Percent ❌
+      - Decimal ❌
 
 ## Usage
 
