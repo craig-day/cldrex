@@ -33,7 +33,6 @@ defmodule CLDRex.Mixfile do
      files: ["data", "lib", "mix.exs", "README.md", "LICENSE"],
      maintainers: ["Craig Day"],
      licenses: ["GNU GPLv3"],
-     links: %{"Github" => "https://github.com/zendesk/cldrex",
-              "Docs" => "http://zendesk.github.io/cldrex"}]
+     links: %{github: "https://github.com/zendesk/cldrex"}]
   end
 end
