@@ -9,17 +9,17 @@ defmodule CLDRex.Mixfile do
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps,
+     deps: deps(),
 
      # Hex
-     description: description,
-     package: package,
+     description: description(),
+     package: package(),
 
      # Docs
      name: "CLDRex",
      source_url: "https://github.com/zendesk/cldrex",
      homepage_url: "https://github.com/zendesk/cldrex",
-     docs: [main: "CLDRex", extras: ["README.md"]]]
+     docs: [main: "CLDRex", source_ref: "v#{@version}", extras: ["README.md"]]]
   end
 
   def application do
