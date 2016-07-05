@@ -33,7 +33,7 @@ The following data from the CLDR is supported.
   - Languages Names ✅
   - Calendar
       - Months ✅
-      - Days ⚡
+      - Days ✅
       - Quarters ❌
       - Day Periods ❌
   - Dates ❌

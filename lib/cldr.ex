@@ -7,8 +7,6 @@ defmodule CLDRex do
 
   import CLDRex.Utils
 
-  alias CLDRex.Languages
-
   @type locale :: atom | String.t
 
   @main_data CLDRex.Data.main_data

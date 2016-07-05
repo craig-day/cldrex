@@ -89,6 +89,19 @@ defmodule CLDRex.Data do
             label: ~x"./text()"
           ]
         ]
+      ],
+      dayContexts: [
+        ~x"./days/dayContext"l,
+        name: ~x"./@type",
+        formats: [
+          ~x"./dayWidth"l,
+          name: ~x"./@type",
+          days: [
+            ~x"./day"l,
+            day: ~x"./@type",
+            label: ~x"./text()"
+          ]
+        ]
       ]
     ])
   end
@@ -106,7 +119,20 @@ defmodule CLDRex.Data do
           end)
           Map.put(mcacc, String.to_atom(to_string(mctxt.name)), f)
         end)
-        Map.put(cacc, String.to_atom(to_string(cal.type)), mc)
+
+        dc = Enum.reduce(cal.dayContexts, %{}, fn(dctxt, dcacc) ->
+          f = Enum.reduce(dctxt.formats, %{}, fn(fmt, facc) ->
+            m = Enum.reduce(fmt.days, %{}, fn(day, macc) ->
+              Map.put(macc, String.to_atom(to_string(day.day)), day.label)
+            end)
+            Map.put(facc, String.to_atom(to_string(fmt.name)), m)
+          end)
+          Map.put(dcacc, String.to_atom(to_string(dctxt.name)), f)
+        end)
+
+        contexts = %{months: mc, days: dc}
+
+        Map.put(cacc, String.to_atom(to_string(cal.type)), contexts)
       end)
     end
   end

@@ -1,7 +1,5 @@
 defmodule CLDRex.DatesTimes do
-  @moduledoc """
-
-  """
+  @moduledoc false
 
   @spec localize_date(Date.t, atom) :: String.t
   def localize_date(date, locale) do
