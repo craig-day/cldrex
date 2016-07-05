@@ -7,18 +7,33 @@ defmodule CLDRex.Mixfile do
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     description: description,
+     package: package,
      deps: deps,
      docs: [extras: ["README.md"]]]
   end
 
-  # Type "mix help compile.app" for more information
   def application do
     [applications: [:logger]]
   end
 
-  # Type "mix help deps" for more examples and options
   defp deps do
     [{:sweet_xml, ">= 0.0.0"},
      {:ex_doc, "~> 0.12", only: :dev}]
+  end
+
+  defp description do
+    """
+    Provide common localization data and formatting attributes from the CLDR.
+    """
+  end
+
+  defp package do
+    [name: :cldrex,
+     files: ["data", "lib", "mix.exs", "README.md", "LICENSE"],
+     maintainers: ["Craig Day"],
+     licenses: ["GNU GPLv3"],
+     links: %{"Github" => "https://github.com/zendesk/cldrex",
+              "Docs" => "http://zendesk.github.io/cldrex"}]
   end
 end
