@@ -9,7 +9,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
   1. Add cldrex to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:cldrex, "~> 0.0.1"}]
+          [{:cldrex, "~> 0.0.1-dev.3"}]
         end
 
   2. Ensure cldrex is started before your application:
