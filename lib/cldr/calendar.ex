@@ -23,6 +23,7 @@ defmodule CLDRex.Calendar do
 
   ## Examples
 
+    ```
     iex> CLDRex.Calendar.months(:en)
     %{"1": 'January', "10": 'October', "11": 'November', "12": 'December',
       "2": 'February', "3": 'March', "4": 'April', "5": 'May', "6": 'June',
@@ -31,6 +32,7 @@ defmodule CLDRex.Calendar do
     iex> CLDRex.Calendar.months(:en, context: :"stand-alone", format: :narrow)
     %{"1": 'J', "10": 'O', "11": 'N', "12": 'D', "2": 'F', "3": 'M', "4": 'A',
       "5": 'M', "6": 'J', "7": 'J', "8": 'A', "9": 'S'}
+    ```
 
   """
   @spec months(atom) :: list
