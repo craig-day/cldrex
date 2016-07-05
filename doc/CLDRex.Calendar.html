@@ -21,7 +21,7 @@
 <section class="sidebar">
 
   
-  <a href="api-reference.html" class="sidebar-projectLink">
+  <a href="CLDRex.html" class="sidebar-projectLink">
     <div class="sidebar-projectDetails">
       <h1 class="sidebar-projectName">
         CLDRex
@@ -93,8 +93,12 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#months/1">months(locale)</a>
+    <a href="#months/2">months(locale, options \\ %{})</a>
   </div>
+  
+    <div class="summary-synopsis"><p>Provide a map of months in the locale localized based on desired context and
+format</p>
+</div>
   
 </div>
 
@@ -118,31 +122,57 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="months/1">
+          <div class="detail" id="months/2">
   <div class="detail-header">
-    <a href="#months/1" class="detail-link" title="Link to this function">
+    <a href="#months/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">months(locale)</span>
+    <span class="signature">months(locale, options \\ %{})</span>
     
-      <a href="https://github.com/zendesk/cldrex/blob/master/lib/cldr/calendar.ex#L7" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/zendesk/cldrex/blob/master/lib/cldr/calendar.ex#L37" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
     
   </div>
   
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">months(atom) :: list</code></pre>
-        
-      </div>
-    </div>
-  
   <section class="docstring">
-    
+    <p>Provide a map of months in the locale localized based on desired context and
+format.</p>
+<p>Accepted options are:</p>
+<ul>
+<li>calendar: the calendar to use. default: <code class="inline">:gregorian</code>
+</li>
+<li><p>context: the calendar information you wish to get. default: <code class="inline">:format</code>. commonly available:</p>
+<ul>
+<li><code class="inline">:format</code>
+</li>
+<li><code class="inline">:&quot;stand-alone&quot;</code>
+</li>
+</ul>
+</li>
+<li><p>format: the data format for the months. default: <code class="inline">:wide</code>. commonly available:</p>
+<ul>
+<li><code class="inline">:wide</code>
+</li>
+<li><code class="inline">:short</code>
+</li>
+<li><code class="inline">:narrow</code>
+</li>
+<li><code class="inline">:abbreviated</code>
+</li>
+</ul>
+</li>
+</ul>
+<h2>Examples</h2>
+<p>  iex&gt; CLDRex.Calendar.months(:en)
+  %{“1”: ‘January’, “10”: ‘October’, “11”: ‘November’, “12”: ‘December’,</p>
+<pre><code class="elixir">&quot;2&quot;: &#39;February&#39;, &quot;3&quot;: &#39;March&#39;, &quot;4&quot;: &#39;April&#39;, &quot;5&quot;: &#39;May&#39;, &quot;6&quot;: &#39;June&#39;,
+&quot;7&quot;: &#39;July&#39;, &quot;8&quot;: &#39;August&#39;, &quot;9&quot;: &#39;September&#39;}</code></pre>
+<p>  iex&gt; CLDRex.Calendar.months(:en, context: :”stand-alone”, format: :narrow)
+  %{“1”: ‘J’, “10”: ‘O’, “11”: ‘N’, “12”: ‘D’, “2”: ‘F’, “3”: ‘M’, “4”: ‘A’,</p>
+<pre><code class="elixir">&quot;5&quot;: &#39;M&#39;, &quot;6&quot;: &#39;J&#39;, &quot;7&quot;: &#39;J&#39;, &quot;8&quot;: &#39;A&#39;, &quot;9&quot;: &#39;S&#39;}</code></pre>
+
   </section>
 </div>
 
