@@ -1,4 +1,4 @@
-defmodule CLDR.Calendar do
+defmodule CLDRex.Calendar do
   @moduledoc """
 
   """

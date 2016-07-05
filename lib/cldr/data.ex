@@ -1,6 +1,6 @@
 # This module shouldn't be interfaced with publically.  It parses the XML files
 # in data/common to extract the needed data.
-defmodule CLDR.Data do
+defmodule CLDRex.Data do
   @moduledoc false
   import SweetXml
 

@@ -1,11 +1,11 @@
-defmodule CLDR.Languages do
+defmodule CLDRex.Languages do
   @moduledoc """
   Provide a list of all languages and their localized name.
   """
-  require CLDR.Main
+  require CLDRex.Main
 
-  alias CLDR.Main
-  alias CLDR.Utils
+  alias CLDRex.Main
+  alias CLDRex.Utils
 
   @type locale :: atom | String.t
 

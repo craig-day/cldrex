@@ -1,4 +1,4 @@
-defmodule CLDR.Utils do
+defmodule CLDRex.Utils do
   @moduledoc """
 
   """

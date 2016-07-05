@@ -1,21 +1,30 @@
-defmodule CLDR do
+defmodule CLDRex do
   @moduledoc """
-
+  Provide a list of all supported locales, and a method to check if a given
+  locale is supported.
   """
-  require CLDR.Data
+  require CLDRex.Data
 
-  import CLDR.Utils
+  import CLDRex.Utils
 
-  alias CLDR.Languages
+  alias CLDRex.Languages
 
-  @main_data CLDR.Data.main_data
+  @type locale :: atom | String.t
 
+  @main_data CLDRex.Data.main_data
+
+  @doc """
+  A list of all supported locales.
+  """
   @spec supported_locales :: list
   def supported_locales do
     Map.keys(@main_data)
   end
 
-  @spec supported_locale?(atom) :: boolean
+  @doc """
+  Check if a given locale is supported.
+  """
+  @spec supported_locale?(locale) :: boolean
   def supported_locale?(locale) do
     l = normalize_locale(locale)
 

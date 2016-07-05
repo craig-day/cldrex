@@ -1,4 +1,4 @@
-defmodule CLDR.DatesTimes do
+defmodule CLDRex.DatesTimes do
   @moduledoc """
 
   """

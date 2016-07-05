@@ -1,6 +1,6 @@
-defmodule CLDRTest do
+defmodule CLDRexTest do
   use ExUnit.Case
-  doctest CLDR
+  doctest CLDRex
 
   test "the truth" do
     assert 1 + 1 == 2
