@@ -1,6 +1,6 @@
 # CLDRex
 
-⚡ This is still a WIP.  Many of the features are not implemented yet, but are being actively developed.
+⚠ This is still a WIP.  Many of the features are not implemented yet, but are being actively developed.
 
 CLDRex uses Unicode's Common Locale Data Repository (CLDR) to localize text.
 
