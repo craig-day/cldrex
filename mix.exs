@@ -4,6 +4,9 @@ defmodule CLDRex.Mixfile do
   def project do
     [app: :cldrex,
      version: "0.0.1",
+     name: "CLDRex",
+     source_url: "https://github.com/zendesk/cldrex",
+     homepage_url: "https://github.com/zendesk/cldrex",
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
