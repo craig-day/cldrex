@@ -39,7 +39,7 @@ defmodule CLDRex.Mixfile do
 
   defp package do
     [name: :cldrex,
-     files: ["data", "lib", "mix.exs", "README.md", "LICENSE"],
+     files: ["priv", "lib", "mix.exs", "README.md", "LICENSE"],
      maintainers: ["Craig Day"],
      licenses: ["GNU GPLv3"],
      links: %{github: "https://github.com/zendesk/cldrex"}]

@@ -4,7 +4,7 @@ defmodule CLDRex.Data do
   @moduledoc false
   import SweetXml
 
-  @data_path Path.expand("./data/common")
+  @data_path Path.expand("../../priv/data/common", __DIR__)
   @main_path Path.join(@data_path, "main")
   @ldml_path Path.join([@data_path, "dtd", "ldml.dtd"])
 
