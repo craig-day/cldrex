@@ -11,7 +11,7 @@ This project takes many hints and guidance from [TwitterCldr](https://github.com
   1. Add cldrex to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:cldrex, "~> 0.0.1-dev.3"}]
+          [{:cldrex, "~> 0.0.1-dev.4"}]
         end
 
   2. Ensure cldrex is started before your application:
@@ -46,7 +46,7 @@ The following data from the CLDR is supported.
 
 ## Usage
 
-For now, view the documentation on [hexdocs](https://hexdocs.pm/cldrex/0.0.1-dev.3/CLDRex.Calendar.html).
+For now, view the documentation on [hexdocs](https://hexdocs.pm/cldrex/0.0.1-dev.4/CLDRex.Calendar.html).
 
 ## Contribute
 
