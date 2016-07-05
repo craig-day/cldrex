@@ -3,9 +3,13 @@ defmodule CLDR.Numbers do
 
   """
 
-  @spec localize(number, atom) :: String.t
-  def localize(number, locale)
+  @spec localize_number(number, atom) :: String.t
+  def localize_number(number, locale) do
 
-  @spec localize(number, atom, %{...}) :: String.t
-  def localize(number, locale, options)
+  end
+
+  # @spec localize_number(number, atom, %{...}) :: String.t
+  def localize_number(number, locale, options) do
+
+  end
 end

@@ -4,5 +4,7 @@ defmodule CLDR.Calendar do
   """
 
   @spec months(atom) :: list
-  def months(locale)
+  def months(locale) do
+
+  end
 end

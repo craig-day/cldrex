@@ -1,23 +1,35 @@
-defmodule DatesTimes do
+defmodule CLDR.DatesTimes do
   @moduledoc """
 
   """
 
-  @spec localize(Date.t, atom) :: String.t
-  def localize(date, locale)
+  @spec localize_date(Date.t, atom) :: String.t
+  def localize_date(date, locale) do
 
-  @spec localize(Date.t, atom, %{...}) :: String.t
-  def localize(date, locale, options)
+  end
 
-  @spec localize(DateTime.t, atom) :: String.t
-  def localize(datetime, locale)
+  # @spec localize_date(Date.t, atom, %{...}) :: String.t
+  def localize_date(date, locale, options) do
 
-  @spec localize(DateTime.t, atom, %{...}) :: String.t
-  def localize(datetime, locale, options)
+  end
 
-  @spec localize(Time.t, atom) :: String.t
-  def localize(time, locale)
+  @spec localize_datetime(DateTime.t, atom) :: String.t
+  def localize_datetime(datetime, locale) do
 
-  @spec localize(Time.t, atom, %{...}) :: String.t
-  def localize(time, locale, options)
+  end
+
+  # @spec localize_datetime(DateTime.t, atom, %{...}) :: String.t
+  def localize_datetime(datetime, locale, options) do
+
+  end
+
+  @spec localize_time(Time.t, atom) :: String.t
+  def localize_time(time, locale) do
+
+  end
+
+  # @spec localize_time(Time.t, atom, %{...}) :: String.t
+  def localize_time(time, locale, options) do
+
+  end
 end

@@ -27,6 +27,6 @@ defmodule CLDR.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [{:sweet_xml, ">= 0.0.0"}]
   end
 end
