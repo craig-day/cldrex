@@ -1,9 +1,11 @@
 defmodule CLDRex.Mixfile do
   use Mix.Project
 
+  @version "0.0.2"
+
   def project do
     [app: :cldrex,
-     version: "0.0.1",
+     version: @version,
      name: "CLDRex",
      source_url: "https://github.com/zendesk/cldrex",
      homepage_url: "https://github.com/zendesk/cldrex",
@@ -22,7 +24,7 @@ defmodule CLDRex.Mixfile do
 
   defp deps do
     [{:sweet_xml, ">= 0.0.0"},
-     {:ex_doc, "~> 0.12", only: :dev}]
+     {:ex_doc, "~> 0.12", only: [:dev, :docs]}]
   end
 
   defp description do
