@@ -12,7 +12,6 @@ defmodule CLDRex.Data do
   def main_data do
     @main_path
       |> File.ls!
-      |> Enum.take(1)
       |> process_files
   end
 
@@ -30,15 +29,13 @@ defmodule CLDRex.Data do
       |> File.read!
       |> String.replace(~r/(<!DOCTYPE ldml SYSTEM ").*?(">)/, "\\1#{@ldml_path}\\2")
 
-    display_pattern = extract_display_pattern(doc)
-    languages = extract_languages(doc)
-    territories = extract_territories(doc)
     locale = build_locale_from_file(file)
 
     Map.put(%{}, locale, %{
-      display_pattern: display_pattern,
-      languages: languages,
-      territories: territories
+      display_pattern: extract_display_pattern(doc),
+      languages: extract_languages(doc),
+      territories: extract_territories(doc),
+      calendar: extract_calendar(doc)
     })
   end
 
@@ -72,14 +69,46 @@ defmodule CLDRex.Data do
 
   defp extract_calendar(doc) do
     doc
-    |> xpath(~x"//dates/calendars/calendar[@type='gregorian']/")
-    |> inspect
-    |> IO.puts
-    # |> Enum.reduce(%{}, fn(l, acc) ->
-    #   code = l.un_code |> to_string |> String.to_atom
-    #   name = l.name |> to_string
-    #   Map.put(acc, code, name)
-    # end)
+    |> extract_calendar_map
+    |> process_calendar_map
+  end
+
+  defp extract_calendar_map(doc) do
+    xmap(doc, calendars: [
+      ~x"//dates/calendars/calendar"l,
+      type: ~x"./@type",
+      monthContexts: [
+        ~x"./months/monthContext"l,
+        name: ~x"./@type",
+        formats: [
+          ~x"./monthWidth"l,
+          name: ~x"./@type",
+          months: [
+            ~x"./month"l,
+            month: ~x"./@type",
+            label: ~x"./text()"
+          ]
+        ]
+      ]
+    ])
+  end
+
+  defp process_calendar_map(xdoc) do
+    Enum.reduce xdoc, %{}, fn(data, _acc) ->
+      {_, calendars} = data
+      Enum.reduce(calendars, %{}, fn(cal, cacc) ->
+        mc = Enum.reduce(cal.monthContexts, %{}, fn(mctxt, mcacc) ->
+          f = Enum.reduce(mctxt.formats, %{}, fn(fmt, facc) ->
+            m = Enum.reduce(fmt.months, %{}, fn(month, macc) ->
+              Map.put(macc, String.to_atom(to_string(month.month)), month.label)
+            end)
+            Map.put(facc, String.to_atom(to_string(fmt.name)), m)
+          end)
+          Map.put(mcacc, String.to_atom(to_string(mctxt.name)), f)
+        end)
+        Map.put(cacc, String.to_atom(to_string(cal.type)), mc)
+      end)
+    end
   end
 
   defp build_locale_from_file(file) do
