@@ -5,8 +5,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.12.0">
-    <title>CLDR.Languages – cldr v0.0.1</title>
-    <link rel="stylesheet" href="dist/app-88251e7c81.css" />
+    <title>CLDRex – cldrex v0.0.1</title>
+    <link rel="stylesheet" href="" />
     
     <script src="dist/sidebar_items.js"></script>
   </head>
@@ -22,7 +22,7 @@
   <a href="api-reference.html" class="sidebar-projectLink">
     <div class="sidebar-projectDetails">
       <h1 class="sidebar-projectName">
-        cldr
+        cldrex
       </h1>
       <h2 class="sidebar-projectVersion">
         v0.0.1
@@ -58,15 +58,16 @@
 
 
       <h1>
-        <small class="visible-xs">cldr v0.0.1</small>
-        CLDR.Languages
+        <small class="visible-xs">cldrex v0.0.1</small>
+        CLDRex
         
         
       </h1>
 
       
         <section id="moduledoc" class="docstring">
-          <p>Provide a list of all languages and their localized name.</p>
+          <p>Provide a list of all supported locales, and a method to check if a given
+locale is supported.</p>
 
         </section>
       
@@ -101,20 +102,19 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#all/0">all()</a>
+    <a href="#supported_locale?/1">supported_locale?(locale)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Return a <code class="inline">Map</code> of languages, where each language is localized in its native
-language</p>
+    <div class="summary-synopsis"><p>Check if a given locale is supported</p>
 </div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#all_for/1">all_for(locale)</a>
+    <a href="#supported_locales/0">supported_locales()</a>
   </div>
   
-    <div class="summary-synopsis"><p>Return a <code class="inline">Map</code> of languages localized in the given <code class="inline">locale</code></p>
+    <div class="summary-synopsis"><p>A list of all supported locales</p>
 </div>
   
 </div>
@@ -155,12 +155,12 @@ language</p>
             </a>
             Functions
           </h1>
-          <div class="detail" id="all/0">
+          <div class="detail" id="supported_locale?/1">
   <div class="detail-header">
-    <a href="#all/0" class="detail-link" title="Link to this function">
+    <a href="#supported_locale?/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">all()</span>
+    <span class="signature">supported_locale?(locale)</span>
     
     
   </div>
@@ -169,23 +169,22 @@ language</p>
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">all :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a></code></pre>
+          <pre><code class="elixir">supported_locale?(<a href="#t:locale/0">locale</a>) :: boolean</code></pre>
         
       </div>
     </div>
   
   <section class="docstring">
-    <p>Return a <code class="inline">Map</code> of languages, where each language is localized in its native
-language.</p>
+    <p>Check if a given locale is supported.</p>
 
   </section>
 </div>
-<div class="detail" id="all_for/1">
+<div class="detail" id="supported_locales/0">
   <div class="detail-header">
-    <a href="#all_for/1" class="detail-link" title="Link to this function">
+    <a href="#supported_locales/0" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">all_for(locale)</span>
+    <span class="signature">supported_locales()</span>
     
     
   </div>
@@ -194,13 +193,13 @@ language.</p>
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">all_for(<a href="#t:locale/0">locale</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a></code></pre>
+          <pre><code class="elixir">supported_locales :: list</code></pre>
         
       </div>
     </div>
   
   <section class="docstring">
-    <p>Return a <code class="inline">Map</code> of languages localized in the given <code class="inline">locale</code>.</p>
+    <p>A list of all supported locales.</p>
 
   </section>
 </div>
@@ -228,7 +227,7 @@ language.</p>
   </div>
 </section>
 </div>
-  <script src="dist/app-21f1a20b9e.js"></script>
+  <script src=""></script>
   </body>
 </html>
 

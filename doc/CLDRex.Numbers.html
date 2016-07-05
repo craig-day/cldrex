@@ -5,8 +5,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.12.0">
-    <title>CLDR.DatesTimes – cldr v0.0.1</title>
-    <link rel="stylesheet" href="dist/app-88251e7c81.css" />
+    <title>CLDRex.Numbers – cldrex v0.0.1</title>
+    <link rel="stylesheet" href="" />
     
     <script src="dist/sidebar_items.js"></script>
   </head>
@@ -22,7 +22,7 @@
   <a href="api-reference.html" class="sidebar-projectLink">
     <div class="sidebar-projectDetails">
       <h1 class="sidebar-projectName">
-        cldr
+        cldrex
       </h1>
       <h2 class="sidebar-projectVersion">
         v0.0.1
@@ -58,15 +58,17 @@
 
 
       <h1>
-        <small class="visible-xs">cldr v0.0.1</small>
-        CLDR.DatesTimes
+        <small class="visible-xs">cldrex v0.0.1</small>
+        CLDRex.Numbers
         
         
       </h1>
 
       
         <section id="moduledoc" class="docstring">
-          
+          <p>Provide number localization including conversion to currency, percentage, and
+decimal values.</p>
+
         </section>
       
 
@@ -79,6 +81,19 @@
             Summary
           </h1>
           
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:locale/0">locale()</a>
+  </div>
+  
+</div>
+
+  </div>
+
 
           
   <div class="summary-functions summary">
@@ -87,38 +102,38 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#localize_date/2">localize_date(date, locale)</a>
+    <a href="#localize/2">localize(number, locale)</a>
   </div>
+  
+    <div class="summary-synopsis"><p>Localize the given number into the given locale</p>
+</div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#localize_date/3">localize_date(date, locale, options)</a>
+    <a href="#to_currency/2">to_currency(number, locale)</a>
   </div>
+  
+    <div class="summary-synopsis"><p>Convert the given number to the localized currency format</p>
+</div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#localize_datetime/2">localize_datetime(datetime, locale)</a>
+    <a href="#to_decimal/2">to_decimal(number, locale)</a>
   </div>
+  
+    <div class="summary-synopsis"><p>Convert the given number to the localized decimal format</p>
+</div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#localize_datetime/3">localize_datetime(datetime, locale, options)</a>
+    <a href="#to_percent/2">to_percent(number, locale)</a>
   </div>
   
+    <div class="summary-synopsis"><p>Convert the given number to the localized percentage format</p>
 </div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#localize_time/2">localize_time(time, locale)</a>
-  </div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#localize_time/3">localize_time(time, locale, options)</a>
-  </div>
   
 </div>
 
@@ -133,6 +148,22 @@
       
 
       
+        <section id="types" class="types details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#types">
+              <i class="icon-link"></i>
+            </a>
+            Types
+          </h1>
+          <div class="types-list">
+            <div id="t:locale/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:locale/0">locale</a> :: atom | <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+  
+</div>
+
+          </div>
+        </section>
+      
 
       
         <section id="functions" class="details-list">
@@ -142,12 +173,12 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="localize_date/2">
+          <div class="detail" id="localize/2">
   <div class="detail-header">
-    <a href="#localize_date/2" class="detail-link" title="Link to this function">
+    <a href="#localize/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">localize_date(date, locale)</span>
+    <span class="signature">localize(number, locale)</span>
     
     
   </div>
@@ -156,35 +187,22 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">localize_date(Date.t, atom) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+          <pre><code class="elixir">localize(number, <a href="#t:locale/0">locale</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
         
       </div>
     </div>
   
   <section class="docstring">
-    
+    <p>Localize the given number into the given locale.</p>
+
   </section>
 </div>
-<div class="detail" id="localize_date/3">
+<div class="detail" id="to_currency/2">
   <div class="detail-header">
-    <a href="#localize_date/3" class="detail-link" title="Link to this function">
+    <a href="#to_currency/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">localize_date(date, locale, options)</span>
-    
-    
-  </div>
-  
-  <section class="docstring">
-    
-  </section>
-</div>
-<div class="detail" id="localize_datetime/2">
-  <div class="detail-header">
-    <a href="#localize_datetime/2" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">localize_datetime(datetime, locale)</span>
+    <span class="signature">to_currency(number, locale)</span>
     
     
   </div>
@@ -193,35 +211,22 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">localize_datetime(DateTime.t, atom) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+          <pre><code class="elixir">to_currency(number, <a href="#t:locale/0">locale</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
         
       </div>
     </div>
   
   <section class="docstring">
-    
+    <p>Convert the given number to the localized currency format.</p>
+
   </section>
 </div>
-<div class="detail" id="localize_datetime/3">
+<div class="detail" id="to_decimal/2">
   <div class="detail-header">
-    <a href="#localize_datetime/3" class="detail-link" title="Link to this function">
+    <a href="#to_decimal/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">localize_datetime(datetime, locale, options)</span>
-    
-    
-  </div>
-  
-  <section class="docstring">
-    
-  </section>
-</div>
-<div class="detail" id="localize_time/2">
-  <div class="detail-header">
-    <a href="#localize_time/2" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">localize_time(time, locale)</span>
+    <span class="signature">to_decimal(number, locale)</span>
     
     
   </div>
@@ -230,27 +235,38 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">localize_time(Time.t, atom) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+          <pre><code class="elixir">to_decimal(number, <a href="#t:locale/0">locale</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
         
       </div>
     </div>
   
   <section class="docstring">
-    
+    <p>Convert the given number to the localized decimal format.</p>
+
   </section>
 </div>
-<div class="detail" id="localize_time/3">
+<div class="detail" id="to_percent/2">
   <div class="detail-header">
-    <a href="#localize_time/3" class="detail-link" title="Link to this function">
+    <a href="#to_percent/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">localize_time(time, locale, options)</span>
+    <span class="signature">to_percent(number, locale)</span>
     
     
   </div>
   
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">to_percent(number, <a href="#t:locale/0">locale</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+      </div>
+    </div>
+  
   <section class="docstring">
-    
+    <p>Convert the given number to the localized percentage format.</p>
+
   </section>
 </div>
 
@@ -277,7 +293,7 @@
   </div>
 </section>
 </div>
-  <script src="dist/app-21f1a20b9e.js"></script>
+  <script src=""></script>
   </body>
 </html>
 

@@ -5,8 +5,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.12.0">
-    <title>CLDR – cldr v0.0.1</title>
-    <link rel="stylesheet" href="dist/app-88251e7c81.css" />
+    <title>CLDRex.DatesTimes – cldrex v0.0.1</title>
+    <link rel="stylesheet" href="" />
     
     <script src="dist/sidebar_items.js"></script>
   </head>
@@ -22,7 +22,7 @@
   <a href="api-reference.html" class="sidebar-projectLink">
     <div class="sidebar-projectDetails">
       <h1 class="sidebar-projectName">
-        cldr
+        cldrex
       </h1>
       <h2 class="sidebar-projectVersion">
         v0.0.1
@@ -58,8 +58,8 @@
 
 
       <h1>
-        <small class="visible-xs">cldr v0.0.1</small>
-        CLDR
+        <small class="visible-xs">cldrex v0.0.1</small>
+        CLDRex.DatesTimes
         
         
       </h1>
@@ -87,13 +87,37 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#supported_locale?/1">supported_locale?(locale)</a>
+    <a href="#localize_date/2">localize_date(date, locale)</a>
   </div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#supported_locales/0">supported_locales()</a>
+    <a href="#localize_date/3">localize_date(date, locale, options)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#localize_datetime/2">localize_datetime(datetime, locale)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#localize_datetime/3">localize_datetime(datetime, locale, options)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#localize_time/2">localize_time(time, locale)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#localize_time/3">localize_time(time, locale, options)</a>
   </div>
   
 </div>
@@ -118,12 +142,12 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="supported_locale?/1">
+          <div class="detail" id="localize_date/2">
   <div class="detail-header">
-    <a href="#supported_locale?/1" class="detail-link" title="Link to this function">
+    <a href="#localize_date/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">supported_locale?(locale)</span>
+    <span class="signature">localize_date(date, locale)</span>
     
     
   </div>
@@ -132,7 +156,7 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">supported_locale?(atom) :: boolean</code></pre>
+          <pre><code class="elixir">localize_date(Date.t, atom) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
         
       </div>
     </div>
@@ -141,12 +165,26 @@
     
   </section>
 </div>
-<div class="detail" id="supported_locales/0">
+<div class="detail" id="localize_date/3">
   <div class="detail-header">
-    <a href="#supported_locales/0" class="detail-link" title="Link to this function">
+    <a href="#localize_date/3" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">supported_locales()</span>
+    <span class="signature">localize_date(date, locale, options)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="localize_datetime/2">
+  <div class="detail-header">
+    <a href="#localize_datetime/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">localize_datetime(datetime, locale)</span>
     
     
   </div>
@@ -155,10 +193,61 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">supported_locales :: list</code></pre>
+          <pre><code class="elixir">localize_datetime(DateTime.t, atom) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
         
       </div>
     </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="localize_datetime/3">
+  <div class="detail-header">
+    <a href="#localize_datetime/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">localize_datetime(datetime, locale, options)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="localize_time/2">
+  <div class="detail-header">
+    <a href="#localize_time/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">localize_time(time, locale)</span>
+    
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">localize_time(Time.t, atom) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="localize_time/3">
+  <div class="detail-header">
+    <a href="#localize_time/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">localize_time(time, locale, options)</span>
+    
+    
+  </div>
   
   <section class="docstring">
     
@@ -188,7 +277,7 @@
   </div>
 </section>
 </div>
-  <script src="dist/app-21f1a20b9e.js"></script>
+  <script src=""></script>
   </body>
 </html>
 
