@@ -12,6 +12,7 @@ defmodule CLDRex.Parsers.XMLParser do
   def parse_main_data do
     @main_path
       |> File.ls!
+      |> Enum.take(1)
       |> process_files
   end
 
@@ -77,7 +78,7 @@ defmodule CLDRex.Parsers.XMLParser do
     xmap(doc, calendars: [
       ~x"//dates/calendars/calendar"l,
       type: ~x"./@type",
-      monthContexts: [
+      month_contexts: [
         ~x"./months/monthContext"l,
         name: ~x"./@type",
         formats: [
@@ -90,7 +91,7 @@ defmodule CLDRex.Parsers.XMLParser do
           ]
         ]
       ],
-      dayContexts: [
+      day_contexts: [
         ~x"./days/dayContext"l,
         name: ~x"./@type",
         formats: [
@@ -102,6 +103,21 @@ defmodule CLDRex.Parsers.XMLParser do
             label: ~x"./text()"
           ]
         ]
+      ],
+      date_formats: [
+        ~x"./dateFormats/dateFormatLength"l,
+        length: ~x"./@type",
+        format: ~x"./dateFormat/pattern/text()"
+      ],
+      time_formats: [
+        ~x"./timeFormats/timeFormatLength"l,
+        length: ~x"./@type",
+        format: ~x"./timeFormat/pattern/text()"
+      ],
+      date_time_formats: [
+        ~x"./dateTimeFormats/dateTimeFormatLength"l,
+        length: ~x"./@type",
+        format: ~x"./dateTimeFormat/pattern/text()"
       ]
     ])
   end
@@ -110,7 +126,7 @@ defmodule CLDRex.Parsers.XMLParser do
     Enum.reduce xdoc, %{}, fn(data, _acc) ->
       {_, calendars} = data
       Enum.reduce(calendars, %{}, fn(cal, cacc) ->
-        mc = Enum.reduce(cal.monthContexts, %{}, fn(mctxt, mcacc) ->
+        mc = Enum.reduce(cal.month_contexts, %{}, fn(mctxt, mcacc) ->
           f = Enum.reduce(mctxt.formats, %{}, fn(fmt, facc) ->
             m = Enum.reduce(fmt.months, %{}, fn(month, macc) ->
               Map.put(macc, String.to_atom(to_string(month.month)), month.label)
@@ -120,7 +136,7 @@ defmodule CLDRex.Parsers.XMLParser do
           Map.put(mcacc, String.to_atom(to_string(mctxt.name)), f)
         end)
 
-        dc = Enum.reduce(cal.dayContexts, %{}, fn(dctxt, dcacc) ->
+        dc = Enum.reduce(cal.day_contexts, %{}, fn(dctxt, dcacc) ->
           f = Enum.reduce(dctxt.formats, %{}, fn(fmt, facc) ->
             m = Enum.reduce(fmt.days, %{}, fn(day, macc) ->
               Map.put(macc, String.to_atom(to_string(day.day)), day.label)
@@ -130,7 +146,25 @@ defmodule CLDRex.Parsers.XMLParser do
           Map.put(dcacc, String.to_atom(to_string(dctxt.name)), f)
         end)
 
-        contexts = %{months: mc, days: dc}
+        datec = Enum.reduce(cal.date_formats, %{}, fn(datectxt, dateacc) ->
+          Map.put(dateacc, datectxt.length, datectxt.format)
+        end)
+
+        timec = Enum.reduce(cal.time_formats, %{}, fn(timectxt, timeacc) ->
+          Map.put(timeacc, timectxt.length, timectxt.format)
+        end)
+
+        dtc = Enum.reduce(cal.date_time_formats, %{}, fn(dtctxt, dtacc) ->
+          Map.put(dtacc, dtctxt.length, dtctxt.format)
+        end)
+
+        contexts = %{
+          months: mc,
+          days: dc,
+          date_formats: datec,
+          time_formats: timec,
+          date_time_formats: dtc
+        }
 
         Map.put(cacc, String.to_atom(to_string(cal.type)), contexts)
       end)
