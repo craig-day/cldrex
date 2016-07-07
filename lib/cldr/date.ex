@@ -2,10 +2,16 @@ defmodule CLDRex.Date do
   @moduledoc """
 
   """
-  alias CLDRex.Main
-  alias CLDRex.Formatters.CLDRFormatter
   import CLDRex.Utils
 
+  alias CLDRex.Main
+  alias CLDRex.Formatters.CLDRFormatter
+
+  @type locale :: atom | String.t
+  @type date :: Ecto.Date.type | Timex.Date.t
+
+
+  @spec localize(date, locale, Map.t) :: String.t
   def localize(date, locale, options \\ %{}) do
     locale = normalize_locale(locale)
     fallback = fallback(locale)
@@ -15,12 +21,10 @@ defmodule CLDRex.Date do
     f = get_in(Main.cldr_main_data,
       [locale, :calendar, cal, :date_formats, length])
 
-    if !f || Enum.empty?(f) do
-      f = get_in(Main.cldr_main_data,
-        [fallback, :calendar, cal, :date_formats, length])
-    end
+    if !f, do: f = get_in(Main.cldr_main_data,
+      [fallback, :calendar, cal, :date_formats, length])
 
-    Timex.format(date, f, CLDRFormatter)
+    CLDRFormatter.format(date, f, {locale, cal})
   end
 
   def short(date, locale, calendar \\ :gregorian),

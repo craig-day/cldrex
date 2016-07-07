@@ -12,7 +12,7 @@ defmodule CLDRex.Parsers.XMLParser do
   def parse_main_data do
     @main_path
       |> File.ls!
-      |> Enum.take(1)
+      |> Enum.filter(fn(l) -> Regex.match?(~r/(en|es)\.xml/, l) end)
       |> process_files
   end
 
@@ -147,15 +147,24 @@ defmodule CLDRex.Parsers.XMLParser do
         end)
 
         datec = Enum.reduce(cal.date_formats, %{}, fn(datectxt, dateacc) ->
-          Map.put(dateacc, datectxt.length, datectxt.format)
+          length = datectxt.length
+            |> to_string
+            |> String.to_atom
+          Map.put(dateacc, length, to_string(datectxt.format))
         end)
 
         timec = Enum.reduce(cal.time_formats, %{}, fn(timectxt, timeacc) ->
-          Map.put(timeacc, timectxt.length, timectxt.format)
+          length = timectxt.length
+            |> to_string
+            |> String.to_atom
+          Map.put(timeacc, length, to_string(timectxt.format))
         end)
 
         dtc = Enum.reduce(cal.date_time_formats, %{}, fn(dtctxt, dtacc) ->
-          Map.put(dtacc, dtctxt.length, dtctxt.format)
+          length = dtctxt.length
+            |> to_string
+            |> String.to_atom
+          Map.put(dtacc, length, to_string(dtctxt.format))
         end)
 
         contexts = %{
