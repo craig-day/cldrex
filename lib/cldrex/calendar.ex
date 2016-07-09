@@ -1,6 +1,7 @@
 defmodule CLDRex.Calendar do
   @moduledoc """
-
+  Provide calendar data for supported languages. This includes months and days
+  in various formats and lengths.
   """
   alias CLDRex.Main
   import CLDRex.Utils

@@ -1,15 +1,15 @@
 # This module shouldn't be interfaced with publically.  It parses the XML files
-# in data/common to extract the needed data.
-defmodule CLDRex.Data do
+# in priv/data/common to extract the needed data.
+defmodule CLDRex.Parsers.XMLParser do
   @moduledoc false
   import SweetXml
 
-  @data_path Path.expand("../../priv/data/common", __DIR__)
+  @data_path Path.expand("../../../priv/data/common", __DIR__)
   @main_path Path.join(@data_path, "main")
   @ldml_path Path.join([@data_path, "dtd", "ldml.dtd"])
 
   @doc false
-  def main_data do
+  def parse_main_data do
     @main_path
       |> File.ls!
       |> process_files

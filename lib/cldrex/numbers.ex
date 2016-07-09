@@ -1,8 +1,9 @@
 defmodule CLDRex.Numbers do
-  @moduledoc """
-  Provide number localization including conversion to currency, percentage, and
-  decimal values.
-  """
+  @moduledoc false
+  # @moduledoc """
+  # Provide number localization including conversion to currency, percentage, and
+  # decimal values.
+  # """
   @type locale :: atom | String.t
 
   @doc """
