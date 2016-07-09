@@ -24,12 +24,13 @@ defmodule CLDRex.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :timex]]
+    [applications: [:logger, :timex, :combine]]
   end
 
   defp deps do
     [{:sweet_xml, "~> 0.6"},
      {:timex, "~> 2.2"},
+     {:combine, "~> 0.7"},
      {:ex_doc, "~> 0.12", only: [:dev, :docs]}]
   end
 
