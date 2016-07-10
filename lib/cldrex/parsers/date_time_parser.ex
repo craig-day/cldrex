@@ -1,97 +1,107 @@
 defmodule CLDRex.Parsers.DateTimeParser do
   @moduledoc false
   alias CLDRex.Main
+  alias CLDRex.Directive
+
+
+  @cldr_chars ~r/\A[yYuUrRMLwWdDFgEecabhHKkmsSA]+/
 
   @rules [
-    # Era
-    {~r/G{5}/,   [:eras, :era_narrow], :era},
-    {~r/G{4}/,   [:eras, :era_names], :era},
-    {~r/G{1-3}/, [:eras, :era_abbr], :era},
     # Year
-    {~r/[yur]{3,}/i, :year_padded, :year},
-    {~r/[yur]{2}/i,  :year2, :year},
-    {~r/[yur]/i,     :year_no_padding, :year},
-    # Quarter
-    {~r/Q{5}/,   [:quarters, :format, :narrow], :quarter},
-    {~r/Q{4}/,   [:quarters, :format, :wide], :quarter},
-    {~r/Q{3}/,   [:quarters, :format, :abbreviated], :quarter},
-    {~r/Q{1,2}/, [:quarters, :format, :numeric], :quarter},
-    {~r/q{5}/,   [:quarters, :"stand-alone", :narrow], :quarter},
-    {~r/q{4}/,   [:quarters, :"stand-alone", :wide], :quarter},
-    {~r/q{3}/,   [:quarters, :"stand-alone", :abbreviated], :quarter},
-    {~r/q{1,2}/, [:quarters, :"stand-alone", :numeric], :quarter},
+    {~r/[yur]{3,}/i, Directive.get(:year, zero_padding: true, date_part: :year)},
+    {~r/[yur]{2}/i,  Directive.get(:year2, date_part: :year)},
+    {~r/[yur]/i,     Directive.get(:year, date_part: :year)},
     # Month
-    {~r/M{5}/,   [:months, :format, :narrow], :month},
-    {~r/M{4}/,   [:months, :format, :wide], :month},
-    {~r/M{3}/,   [:months, :format, :abbreviated], :month},
-    {~r/M{1,2}/, [:months, :format, :numeric], :month},
-    {~r/L{5}/,   [:months, :"stand-alone", :narrow], :month},
-    {~r/L{4}/,   [:months, :"stand-alone", :wide], :month},
-    {~r/L{3}/,   [:months, :"stand-alone", :abbreviated], :month},
-    {~r/L{1,2}/, [:months, :"stand-alone", :numeric], :month},
+    {~r/M{5}/,       Directive.get(:month_narrow, date_part: :month)},
+    {~r/M{4}/,       Directive.get(:month_wide, date_part: :month)},
+    {~r/M{3}/,       Directive.get(:month_abrv, date_part: :month)},
+    {~r/M{1,2}/,     Directive.get(:month, date_part: :month)},
+    {~r/L{5}/,       Directive.get(:smonth_narrow, date_part: :month)},
+    {~r/L{4}/,       Directive.get(:smonth_wide, date_part: :month)},
+    {~r/L{3}/,       Directive.get(:smonth_abrv, date_part: :month)},
+    {~r/L{1,2}/,     Directive.get(:month, date_part: :month)},
     # Week
-    {~r/w{1,2}/, :week_of_year, :week},
-    {~r/W/,      :week_of_month, :week},
+    {~r/w{1,2}/,     Directive.get(:week, date_part: :week)},
+    {~r/W/,          Directive.get(:mweek, date_part: :week)},
     # Day
-    {~r/d{1,2}/, :day_of_month, :day},
-    {~r/D{1,3}/, :day_of_year, :day},
-    {~r/F/,      :day_of_week_in_month, :day},
-    {~r/g{1,}/,  :modified_julian_day, :day},
+    {~r/d{1,2}/,     Directive.get(:day, date_part: :day)},
+    {~r/D{1,3}/,     Directive.get(:yday, date_part: :day)},
+    {~r/F/,          Directive.get(:dwday, date_part: :day)},
+    {~r/g{1,}/,      Directive.get(:mjday, date_part: :day)},
     # Week Day
-    {~r/E{6}/,   [:days, :format, :short], :week_day},
-    {~r/E{5}/,   [:days, :format, :narrow], :week_day},
-    {~r/E{4}/,   [:days, :format, :wide], :week_day},
-    {~r/E{1,3}/, [:days, :format, :abbreviated], :week_day},
-    {~r/e{6}/,   [:days, :format, :short], :week_day},
-    {~r/e{5}/,   [:days, :format, :narrow], :week_day},
-    {~r/e{4}/,   [:days, :format, :wide], :week_day},
-    {~r/e{3}/,   [:days, :format, :abbreviated], :week_day},
-    {~r/e{1,2}/, [:days, :format, :numeric], :week_day},
-    {~r/c{6}/,   [:days, :"stand-alone", :short], :week_day},
-    {~r/c{5}/,   [:days, :"stand-alone", :narrow], :week_day},
-    {~r/c{4}/,   [:days, :"stand-alone", :wide], :week_day},
-    {~r/c{3}/,   [:days, :"stand-alone", :abbreviated], :week_day},
-    {~r/c/,      [:days, :"stand-alone", :numeric], :week_day},
+    {~r/E{6}/,       Directive.get(:wd_short, date_part: :week_day)},
+    {~r/E{5}/,       Directive.get(:wd_narrow, date_part: :week_day)},
+    {~r/E{4}/,       Directive.get(:wd_wide, date_part: :week_day)},
+    {~r/E{1,3}/,     Directive.get(:wd_abrv, date_part: :week_day)},
+    {~r/e{6}/,       Directive.get(:lwd_short, date_part: :week_day)},
+    {~r/e{5}/,       Directive.get(:lwd_narrow, date_part: :week_day)},
+    {~r/e{4}/,       Directive.get(:lwd_wide, date_part: :week_day)},
+    {~r/e{3}/,       Directive.get(:lwd_abrv, date_part: :week_day)},
+    {~r/e{1,2}/,     Directive.get(:week_day, date_part: :week_day)},
+    {~r/c{6}/,       Directive.get(:swd_short, date_part: :week_day)},
+    {~r/c{5}/,       Directive.get(:swd_narrow, date_part: :week_day)},
+    {~r/c{4}/,       Directive.get(:swd_wide, date_part: :week_day)},
+    {~r/c{3}/,       Directive.get(:swd_abrv, date_part: :week_day)},
+    {~r/c/,          Directive.get(:week_day, date_part: :week_day)},
     # Period
-    {~r/a{5}/,    [:day_periods, :format, :narrow], :period},
-    {~r/a{4}/,    [:day_periods, :format, :wide], :period},
-    {~r/a{1,3}/,  [:day_periods, :format, :abbreviated], :period},
-    {~r/b{5}/i,   [:day_periods, :format, :narrow], :period},
-    {~r/b{4}/i,   [:day_periods, :format, :wide], :period},
-    {~r/b{1,3}/i, [:day_periods, :format, :abbreviated], :period},
+    {~r/a{5}/,       Directive.get(:period_narrow, date_part: :hour)}, # Not fully supported yet
+    {~r/a{4}/,       Directive.get(:period_wide, date_part: :hour)},   # Not fully supported yet
+    {~r/a{1,3}/,     Directive.get(:period_abrv, date_part: :hour)},   # Not fully supported yet
+    {~r/b{5}/i,      Directive.get(:period_narrow, date_part: :hour)}, # Not fully supported yet
+    {~r/b{4}/i,      Directive.get(:period_wide, date_part: :hour)},   # Not fully supported yet
+    {~r/b{1,3}/i,    Directive.get(:period_abrv, date_part: :hour)},   # Not fully supported yet
     # Hour
-    {~r/h{1,2}/, :hour12, :hour},
-    {~r/H{1,2}/, :hour24_zero, :hour},
-    {~r/K{1,2}/, :hour12_zero, :hour},
-    {~r/k{1,2}/, :hour24, :hour},
+    {~r/h{1,2}/,     Directive.get(:hour12, date_part: :hour)},
+    {~r/H{1,2}/,     Directive.get(:hour24, zero_padding: true, date_part: :hour)},
+    {~r/K{1,2}/,     Directive.get(:hour12, zero_padding: true, date_part: :hour)},
+    {~r/k{1,2}/,     Directive.get(:hour24, date_part: :hour)},
     # Minute
-    {~r/m{1,2}/, :minute, :minute},
+    {~r/m{1,2}/,     Directive.get(:minute, date_part: :minute)},
     # Second
-    {~r/s{1,2}/, :second, :second},
-    {~r/S{1,}/,  :fractional_second, :second},
-    {~r/A{1,}/,  :millisecond, :second}
+    {~r/s{1,2}/,     Directive.get(:second, date_part: :second)},
+    {~r/S{1,}/,      Directive.get(:fsecond, date_part: :second)},    # Not fully supported
+    {~r/A{1,}/,      Directive.get(:millisecond, date_part: :second)} # Not fully supported
     # Zone
       # TODO
   ]
 
 
-  def tokenize(format_string), do: apply_rules(@rules, format_string, [])
+  def parse(format_string) do
+    format_string
+    |> to_string
+    |> do_parse([])
+    |> find_directives
+  end
 
-  defp apply_rules(rules, format_string, tokens) when rules == [], do: tokens
-  defp apply_rules(rules, format_string, tokens) do
-    {rule, remaining_rules} = Enum.split(rules, 1)
-    {pattern, cldr_key, property} = Enum.at(rule, 0)
+  defp do_parse(<<>>, tokens), do: tokens
+  defp do_parse(format_string, tokens) do
+    {token, remaining_string} = case Regex.run(@cldr_chars, format_string) do
+      nil     ->
+        String.split_at(format_string, 1)
+      matches ->
+        match = Enum.at(matches, 0)
+        remaining = format_string
+          |> String.split(match)
+          |> Enum.at(1)
 
-    run = Regex.run(pattern, format_string)
-
-    match = if run, do: Enum.at(run, 0)
-
-    {new_tokens, remaining_string} = case match do
-      nil -> {tokens, format_string}
-      _   -> {Enum.concat(tokens, [{match, cldr_key, property}]),
-        String.replace(format_string, match, "*", global: false)}
+        {match, remaining}
     end
 
-    apply_rules(remaining_rules, remaining_string, new_tokens)
+    new_tokens = Enum.concat(tokens, [token])
+
+    do_parse(remaining_string, new_tokens)
+  end
+
+  defp find_directives(tokens) do
+    Enum.reduce tokens, [], fn (token, acc) ->
+      Enum.concat(acc, [match_rule(token)])
+    end
+  end
+
+  defp match_rule(token) do
+    case Enum.find(@rules, fn ({r, _}) -> token =~ r end) do
+      nil    -> token
+      {r, d} -> %{d | token: token}
+    end
   end
 end
