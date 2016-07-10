@@ -28,7 +28,9 @@ defmodule CLDRex.Mixfile do
   end
 
   defp deps do
-    [{:sweet_xml, ">= 0.0.0"},
+    [{:sweet_xml, "~> 0.6"},
+     {:timex, "~> 2.2"},
+     {:ecto, "~> 2.0"},
      {:ex_doc, "~> 0.12", only: [:dev, :docs]}]
   end
 
