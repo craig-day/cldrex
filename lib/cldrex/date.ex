@@ -1,6 +1,6 @@
 defmodule CLDRex.Date do
   @moduledoc """
-  Provide date localization common date formats.
+  Provide date localization for common date formats.
   """
   import CLDRex.Utils
 
