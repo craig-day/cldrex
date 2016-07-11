@@ -12,7 +12,6 @@ defmodule CLDRex.Parsers.XMLParser do
   def parse_main_data do
     @main_path
       |> File.ls!
-      |> Enum.filter(fn(l) -> Regex.match?(~r/(en|es)\.xml/, l) end)
       |> process_files
   end
 

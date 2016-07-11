@@ -4,20 +4,28 @@ defmodule CLDRex.Formatters.CLDRFormatter do
   alias CLDRex.Directive
   alias CLDRex.Parsers.DateTimeParser
 
-  @type date :: Ecto.Date.type | Timex.Date.t
+  @type date :: Ecto.Date.type | Timex.Date.t | {number, number, number}
   @type locale :: atom | String.t
 
   @spec format(date, String.t, {locale, atom}) :: String.t
   def format(date, format_string, context)
 
-  def format(%Ecto.Date{year: y, month: m, day: d}, format_string, context),
-    do: do_format(%{year: y, month: m, day: d}, format_string, context)
+  def format(%Timex.Date{} = date, format_string, context),
+    do: do_format(date, format_string, context)
 
-  def format(%Timex.Date{year: y, month: m, day: d}, format_string, context),
-    do: do_format(%{year: y, month: m, day: d}, format_string, context)
+  def format(%Ecto.Date{} = date, format_string, context) do
+    {:ok, d} = Ecto.dump(date)
+    Timex.Date.from(d)
+    |> do_format(format_string, context)
+  end
+
+  def format({_y, _m, _d} = date, format_string, context) do
+    Timex.Date.from(date)
+    |> do_format(format_string, context)
+  end
 
   def format(_date, _format_string, _context),
-    do: raise ArgumentError, "date must be a Ecto.Date or Timex.Date"
+    do: raise ArgumentError, "unknown date type"
 
   defp do_format(date, format_string, context) do
     format_string
@@ -39,10 +47,26 @@ defmodule CLDRex.Formatters.CLDRFormatter do
 
   defp process_token(directive, _date, _context), do: directive
 
-  defp do_lookup(%Directive{date_part: date_part, cldr_attribute: cldr_attr}, date, _) when cldr_attr == :numeric do
-    date
-    |> Map.get(date_part)
+  defp do_lookup(%Directive{date_part: date_part, cldr_attribute: cldr_attr}, %Timex.Date{year: y, month: m, day: d} = date, _) when cldr_attr == :numeric do
+    case date_part do
+      :year  -> y
+      :month -> m
+      :day   -> d
+    end
     |> to_string
+  end
+
+  defp do_lookup(%Directive{date_part: date_part, cldr_attribute: cldr_attr}, date, {locale, calendar}) when date_part == :week_day do
+    weekday_key = date
+      |> Timex.weekday
+      |> Timex.day_shortname
+      |> String.downcase
+      |> String.to_atom
+
+    Main.cldr_main_data
+    |> get_in([locale, :calendar, calendar])
+    |> get_in(cldr_attr)
+    |> Map.get(weekday_key)
   end
 
   defp do_lookup(%Directive{date_part: date_part, cldr_attribute: cldr_attr} = directive, date, {locale, calendar}) do
