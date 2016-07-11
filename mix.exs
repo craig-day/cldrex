@@ -18,8 +18,8 @@ defmodule CLDRex.Mixfile do
 
      # Docs
      name: "CLDRex",
-     source_url: "https://github.com/zendesk/cldrex",
-     homepage_url: "https://github.com/zendesk/cldrex",
+     source_url: "https://github.com/craig-day/cldrex",
+     homepage_url: "https://github.com/craig-day/cldrex",
      docs: [main: "CLDRex", source_ref: "v#{@version}", extras: ["README.md"]]]
   end
 
@@ -45,6 +45,6 @@ defmodule CLDRex.Mixfile do
      files: ["priv", "lib", "mix.exs", "README.md", "LICENSE"],
      maintainers: ["Craig Day"],
      licenses: ["GNU GPLv3"],
-     links: %{github: "https://github.com/zendesk/cldrex"}]
+     links: %{github: "https://github.com/craig-day/cldrex"}]
   end
 end
