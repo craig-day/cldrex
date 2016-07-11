@@ -11,7 +11,7 @@ This project takes many hints and guidance from [TwitterCldr](https://github.com
   1. Add cldrex to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:cldrex, "~> 0.0.2"}]
+          [{:cldrex, "~> 0.0.3"}]
         end
 
   2. Ensure cldrex is started before your application:

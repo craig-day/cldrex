@@ -2,7 +2,7 @@ defmodule CLDRex.Mixfile do
   use Mix.Project
 
   # Don't forget to update the README
-  @version "0.0.2"
+  @version "0.0.3"
 
   def project do
     [app: :cldrex,
