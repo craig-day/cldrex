@@ -52,8 +52,8 @@ defmodule CLDRex.Parsers.DateTimeParser do
     {~r/b{1,3}/i,    Directive.get(:period_abrv, date_part: :hour)},   # Not fully supported yet
     # Hour
     {~r/h{1,2}/,     Directive.get(:hour12, date_part: :hour)},
-    {~r/H{1,2}/,     Directive.get(:hour24, zero_padding: true, date_part: :hour)},
-    {~r/K{1,2}/,     Directive.get(:hour12, zero_padding: true, date_part: :hour)},
+    {~r/H{1,2}/,     Directive.get(:hour24, date_part: :hour, zero_padding: true)},
+    {~r/K{1,2}/,     Directive.get(:hour12, date_part: :hour, zero_padding: true)},
     {~r/k{1,2}/,     Directive.get(:hour24, date_part: :hour)},
     # Minute
     {~r/m{1,2}/,     Directive.get(:minute, date_part: :minute)},

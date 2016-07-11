@@ -1,31 +1,26 @@
-defmodule CLDRex.Formatters.CLDRFormatter do
+defmodule CLDRex.Formatters.CLDRTimeFormatter do
   @moduledoc false
   alias CLDRex.Main
   alias CLDRex.Directive
   alias CLDRex.Parsers.DateTimeParser
 
-  @type date :: Ecto.Date.type | Timex.Date.t | {number, number, number}
+  @type time :: Ecto.Time.type | Timex.Time.t | {number, number, number}
   @type locale :: atom | String.t
 
-  @spec format(date, String.t, {locale, atom}) :: String.t
-  def format(date, format_string, context)
+  @spec format(time, String.t, {locale, atom}) :: String.t
+  def format(time, format_string, context)
 
-  def format(%Timex.Date{} = date, format_string, context),
-    do: do_format(date, format_string, context)
+  def format(%Timex.Time{} = time, format_string, context),
+    do: do_format(time, format_string, context)
 
-  def format(%Ecto.Date{} = date, format_string, context) do
-    {:ok, d} = Ecto.dump(date)
-    Timex.Date.from(d)
+  def format(%Ecto.Time{} = time, format_string, context) do
+    {:ok, d} = Ecto.dump(time)
+    Timex.Time.from(d)
     |> do_format(format_string, context)
   end
 
-  def format({_y, _m, _d} = date, format_string, context) do
-    Timex.Date.from(date)
-    |> do_format(format_string, context)
-  end
-
-  def format(_date, _format_string, _context),
-    do: raise ArgumentError, "unknown date type"
+  def format(_time, _format_string, _context),
+    do: raise ArgumentError, "unknown time type"
 
   defp do_format(date, format_string, context) do
     format_string
@@ -47,7 +42,7 @@ defmodule CLDRex.Formatters.CLDRFormatter do
 
   defp process_token(directive, _date, _context), do: directive
 
-  defp do_lookup(%Directive{date_part: date_part, cldr_attribute: cldr_attr}, %Timex.Date{year: y, month: m, day: d} = date, _) when cldr_attr == :numeric do
+  defp do_lookup(%Directive{date_part: date_part, cldr_attribute: cldr_attr}, %Timex.Time{year: y, month: m, day: d} = date, _) when cldr_attr == :numeric do
     case date_part do
       :year  -> y
       :month -> m
