@@ -46,7 +46,7 @@ The following data from the CLDR is supported.
 
 ## Usage
 
-For now, view the documentation on [hexdocs](https://hexdocs.pm/cldrex/0.0.1-dev.4/CLDRex.Calendar.html).
+For now, view the documentation on [hexdocs](https://hexdocs.pm/cldrex).
 
 ## Contribute
 
