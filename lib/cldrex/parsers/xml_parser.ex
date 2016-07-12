@@ -22,6 +22,7 @@ defmodule CLDRex.Parsers.XMLParser do
   end
 
   defp process_file(file) do
+    IO.puts "Processing #{inspect(file)}"
     # the replace is an ugly hack because the doc uses a relative path which
     # breaks at compile time, so we need to change that path
     doc = @main_path
@@ -35,20 +36,21 @@ defmodule CLDRex.Parsers.XMLParser do
       display_pattern: extract_display_pattern(doc),
       languages: extract_languages(doc),
       territories: extract_territories(doc),
-      calendar: extract_calendar(doc)
+      calendar: extract_calendar(doc),
+      numbers: Map.get(extract_numbers(doc), :numbers, %{})
     })
   end
 
   defp extract_display_pattern(doc) do
     doc
-    |> xpath(~x"//localeDisplayPattern/localePattern/text()")
+    |> xpath(~x"//localeDisplayPattern/localePattern/text()"s)
     |> to_string
   end
 
   defp extract_languages(doc) do
     doc
     |> xpath(~x"//languages/language"l,
-      locale: ~x"./@type", language: ~x"./text()")
+      locale: ~x"./@type", language: ~x"./text()"s)
     |> Enum.reduce(%{}, fn(l, acc) ->
       loc = l.locale |> to_string |> String.to_atom
       lng = l.language |> to_string
@@ -59,12 +61,51 @@ defmodule CLDRex.Parsers.XMLParser do
   defp extract_territories(doc) do
     doc
     |> xpath(~x"//territories/territory"l,
-      un_code: ~x"./@type", name: ~x"./text()")
+      un_code: ~x"./@type", name: ~x"./text()"s)
     |> Enum.reduce(%{}, fn(l, acc) ->
       code = l.un_code |> to_string |> String.to_atom
       name = l.name |> to_string
       Map.put(acc, code, name)
     end)
+  end
+
+  defp extract_numbers(doc) do
+    numbers = xpath(doc, ~x"//numbers"e)
+
+    case numbers do
+      nil -> %{}
+      _   ->
+        numbers_map = xmap(doc, numbers: [
+          ~x"//numbers",
+          decimal_pattern: ~x"./decimalFormats/decimalFormatLength/decimalFormat/pattern[1]/text()"s,
+          decimal_formats: [
+            ~x"./decimalFormats/decimalFormatLength"l,
+            type: ~x"./@type",
+            patterns: [
+              ~x"./decimalFormat/pattern"l,
+              type: ~x"./@type",
+              count: ~x"./@count",
+              pattern: ~x"./text()"s
+            ]
+          ]
+        ])
+
+        symbols = if xpath(numbers, ~x"//numbers/symbols"e) do
+          xmap(numbers, symbols: [
+            ~x"//numbers/symbols",
+            decimal: ~x"./decimal/text()"s,
+            group: ~x"./group/text()"s,
+            percent: ~x"./percentSign/text()"s,
+            plus: ~x"./plusSign/text()"s,
+            minus: ~x"./minusSign/text()"s
+          ])
+        end
+
+        case symbols do
+          nil -> numbers_map
+          _   -> put_in(numbers_map, [:numbers, :symbols], symbols.symbols)
+        end
+    end
   end
 
   defp extract_calendar(doc) do
@@ -86,7 +127,7 @@ defmodule CLDRex.Parsers.XMLParser do
           months: [
             ~x"./month"l,
             month: ~x"./@type",
-            label: ~x"./text()"
+            label: ~x"./text()"s
           ]
         ]
       ],
@@ -99,24 +140,24 @@ defmodule CLDRex.Parsers.XMLParser do
           days: [
             ~x"./day"l,
             day: ~x"./@type",
-            label: ~x"./text()"
+            label: ~x"./text()"s
           ]
         ]
       ],
       date_formats: [
         ~x"./dateFormats/dateFormatLength"l,
         length: ~x"./@type",
-        format: ~x"./dateFormat/pattern/text()"
+        format: ~x"./dateFormat/pattern/text()"s
       ],
       time_formats: [
         ~x"./timeFormats/timeFormatLength"l,
         length: ~x"./@type",
-        format: ~x"./timeFormat/pattern/text()"
+        format: ~x"./timeFormat/pattern/text()"s
       ],
       date_time_formats: [
         ~x"./dateTimeFormats/dateTimeFormatLength"l,
         length: ~x"./@type",
-        format: ~x"./dateTimeFormat/pattern/text()"
+        format: ~x"./dateTimeFormat/pattern/text()"s
       ]
     ])
   end

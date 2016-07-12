@@ -39,7 +39,7 @@ The following data from the CLDR is supported.
   - Dates ⚡
   - Times ❌
   - Numbers
-      - Basic ❌
+      - Basic ⚡
       - Currency ❌
       - Percent ❌
       - Decimal ❌
