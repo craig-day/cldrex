@@ -1,9 +1,8 @@
 defmodule CLDRex.Numbers do
-  @moduledoc false
-  # @moduledoc """
-  # Provide number localization including conversion to currency, percentage, and
-  # decimal values.
-  # """
+  @moduledoc """
+  Provide number localization including conversion to currency, percentage, and
+  decimal values.
+  """
   import CLDRex.Utils
 
   alias CLDRex.Main
