@@ -12,12 +12,37 @@ defmodule CLDRex.Numbers do
   @type locale :: atom | String.t
 
   @doc """
-  Localize the given number into the given locale.
+  Localize the given number.
+
+  Accepted options are:
+
+    - precision: the floating point precision. default: nil - it will not round
+        the fractional part of the number.  Valid options are 0..15.
+
+
+  ## Examples
+
+  ```
+  iex> CLDRex.Numbers.localize(12345, :en)
+  "12,345"
+  ```
+
+  ```
+  iex> CLDRex.Numbers.localize(12345.789, :en)
+  "12,345.789"
+  ```
+
+  ```
+  iex> CLDRex.Numbers.localize(12345.789, :en, precision: 2)
+  "12,345.79"
+  ```
+
   """
-  @spec localize(number, locale) :: String.t
-  def localize(number, locale) do
-    locale   = normalize_locale(locale)
-    fallback = fallback(locale)
+  @spec localize(number, locale, Map.t) :: String.t
+  def localize(number, locale, options \\ %{}) do
+    locale    = normalize_locale(locale)
+    fallback  = fallback(locale)
+    precision = get_in(options, [:precision])
 
     pattern = get_in(Main.cldr_main_data,
       [locale, :numbers, :decimal_pattern])
@@ -25,7 +50,7 @@ defmodule CLDRex.Numbers do
     if !pattern, do: pattern = get_in(Main.cldr_main_data,
       [locale, :numbers, :decimal_pattern])
 
-    NumberFormatter.format(number, pattern, locale)
+    NumberFormatter.format(number, pattern, locale, %{precision: precision})
   end
 
   @doc """
