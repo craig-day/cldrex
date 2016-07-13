@@ -63,12 +63,4 @@ defmodule CLDRex.Numbers do
   def to_percent(number, locale) do
 
   end
-
-  @doc """
-  Convert the given number to the localized decimal format.
-  """
-  @spec to_decimal(number, locale) :: String.t
-  def to_decimal(number, locale) do
-
-  end
 end
