@@ -15,12 +15,12 @@ defmodule CLDRex.Date do
 
   Accepted options are:
 
-    - calendar: the calendar to use. default: `:gregorian`
-    - length: the date format to use. default: `:full` commonly available:
-      - `:full`
-      - `:long`
-      - `:medium`
-      - `:short`
+    - calendar: the calendar to use. default: `gregorian`
+    - length: the date format to use. commonly available:
+      - `full`
+      - `long`
+      - `medium`
+      - `short`
 
   ## Examples
 
@@ -35,29 +35,26 @@ defmodule CLDRex.Date do
   ```
 
   ```
-  iex> CLDRex.Date.localize({2016, 07, 11}, :fr, length: :medium)
+  iex> CLDRex.Date.localize({2016, 07, 11}, :fr, length: "medium")
   "11 juil. 2016"
   ```
 
   """
   @spec localize(date, locale, Map.t) :: String.t
-  def localize(date, locale, options \\ %{}) do
+  def localize(date, locale, options \\ []) do
     locale   = normalize_locale(locale)
     fallback = fallback(locale)
-    length   = get_in(options, [:length])   || :full
-    cal      = get_in(options, [:calendar]) || :gregorian
+    cal      = get_in(options, [:calendar]) || default_calendar(locale)
+    length   = get_in(options, [:length])   || default_date_format(locale, cal)
 
     f = get_in(Main.cldr_main_data,
-      [locale, :calendar, cal, :date_formats, length])
-
-    if !f, do: f = get_in(Main.cldr_main_data,
-      [fallback, :calendar, cal, :date_formats, length])
+      [locale, :calendars, cal, "dateFormats", length, "dateFormat", "pattern"])
 
     CLDRFormatter.format(date, f, {locale, cal})
   end
 
   @doc """
-  Shortcut for `localize/3` when passed the `length: :short` option.
+  Shortcut for `localize/3` when passed the `length: "short"` option.
 
   ## Examples
 
@@ -68,11 +65,11 @@ defmodule CLDRex.Date do
 
   """
   @spec short(date, locale, atom) :: String.t
-  def short(date, locale, calendar \\ :gregorian),
-    do: localize(date, locale, %{length: :short, calendar: calendar})
+  def short(date, locale, calendar \\ nil),
+    do: localize(date, locale, %{length: "short", calendar: calendar})
 
   @doc """
-  Shortcut for `localize/3` when passed the `length: :medium` option.
+  Shortcut for `localize/3` when passed the `length: "medium"` option.
 
   ## Examples
 
@@ -83,11 +80,11 @@ defmodule CLDRex.Date do
 
   """
   @spec medium(date, locale, atom) :: String.t
-  def medium(date, locale, calendar \\ :gregorian),
-    do: localize(date, locale, %{length: :medium, calendar: calendar})
+  def medium(date, locale, calendar \\ nil),
+    do: localize(date, locale, %{length: "medium", calendar: calendar})
 
   @doc """
-  Shortcut for `localize/3` when passed the `length: :long` option.
+  Shortcut for `localize/3` when passed the `length: "long"` option.
 
   ## Examples
 
@@ -98,11 +95,11 @@ defmodule CLDRex.Date do
 
   """
   @spec long(date, locale, atom) :: String.t
-  def long(date, locale, calendar \\ :gregorian),
-    do: localize(date, locale, %{length: :long, calendar: calendar})
+  def long(date, locale, calendar \\ nil),
+    do: localize(date, locale, %{length: "long", calendar: calendar})
 
   @doc """
-  Shortcut for `localize/3` when passed the `length: :full` option.
+  Shortcut for `localize/3` when passed the `length: "full"` option.
 
   ## Examples
 
@@ -113,6 +110,6 @@ defmodule CLDRex.Date do
 
   """
   @spec full(date, locale, atom) :: String.t
-  def full(date, locale, calendar \\ :gregorian),
-    do: localize(date, locale, %{length: :full, calendar: calendar})
+  def full(date, locale, calendar \\ nil),
+    do: localize(date, locale, %{length: "full", calendar: calendar})
 end

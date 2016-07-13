@@ -61,23 +61,21 @@ defmodule CLDRex.Formatters.CLDRFormatter do
       |> Timex.weekday
       |> Timex.day_shortname
       |> String.downcase
-      |> String.to_atom
 
     Main.cldr_main_data
-    |> get_in([locale, :calendar, calendar])
+    |> get_in([locale, :calendars, calendar])
     |> get_in(cldr_attr)
     |> Map.get(weekday_key)
   end
 
   defp do_lookup(%Directive{date_part: date_part, cldr_attribute: cldr_attr} = directive, date, {locale, calendar}) do
     cldr_data = Main.cldr_main_data
-      |> get_in([locale, :calendar, calendar])
+      |> get_in([locale, :calendars, calendar])
       |> get_in(cldr_attr)
 
     date_data = date
     |> Map.get(date_part)
     |> to_string
-    |> String.to_atom
 
     Map.get(cldr_data, date_data)
   end

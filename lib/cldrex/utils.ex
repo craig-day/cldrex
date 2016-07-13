@@ -36,4 +36,24 @@ defmodule CLDRex.Utils do
 
     CLDRex.supported_locale?(l) || CLDRex.supported_locale?(f)
   end
+
+  @doc false
+  def default_calendar(locale) do
+    l = normalize_locale(locale)
+
+    CLDRex.Main.cldr_main_data
+    |> get_in([l, :calendars, "default"])
+    |> to_string
+  end
+
+  @doc false
+  def default_date_format(locale, calendar) do
+    l = normalize_locale(locale)
+
+    cal = CLDRex.Main.cldr_main_data
+      |> get_in([l, :calendars, calendar, "dateFormats", "default"])
+      |> to_string
+
+    cal || "gregorian"
+  end
 end

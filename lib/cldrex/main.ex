@@ -3,9 +3,9 @@
 # that need access to the data.
 defmodule CLDRex.Main do
   @moduledoc false
-  require CLDRex.Parsers.XMLParser
+  require CLDRex.Parsers.JSONParser
 
-  @data CLDRex.Parsers.XMLParser.parse_main_data
+  @data CLDRex.Parsers.JSONParser.parse
 
   @doc false
   def cldr_main_data, do: @data
