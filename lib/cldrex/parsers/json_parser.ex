@@ -6,6 +6,7 @@ defmodule CLDRex.Parsers.JSONParser do
   def parse do
     @data_path
     |> File.ls!
+    |> Enum.filter(fn(f) -> f =~ ~r/^(en|es|de)\.json/ end)
     |> process_files
   end
 

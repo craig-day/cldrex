@@ -40,7 +40,7 @@ defmodule CLDRex.Date do
   ```
 
   """
-  @spec localize(date, locale, Map.t) :: String.t
+  @spec localize(date, locale, Keyword.t) :: String.t
   def localize(date, locale, options \\ []) do
     locale   = normalize_locale(locale)
     fallback = fallback(locale)

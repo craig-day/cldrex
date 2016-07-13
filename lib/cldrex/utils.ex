@@ -56,4 +56,22 @@ defmodule CLDRex.Utils do
 
     cal || "gregorian"
   end
+
+  @doc false
+  def default_decimal_format(locale) do
+    l = normalize_locale(locale)
+
+    CLDRex.Main.cldr_main_data
+    |> get_in([l, :numbers, :decimal_formats, "standard", "decimalFormat", "pattern"])
+    |> to_string
+  end
+
+  @doc false
+  def default_number_system(locale) do
+    l = normalize_locale(locale)
+
+    CLDRex.Main.cldr_main_data
+    |> get_in([l, :numbers, :default_number_system])
+    |> to_string
+  end
 end
