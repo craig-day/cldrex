@@ -1,12 +1,17 @@
 defmodule CLDRex.Parsers.JSONParser do
   @moduledoc false
 
-  @data_path Path.expand("../../../priv/data/common/main_json", __DIR__)
+  @data_path Path.expand("../../../priv/data/common", __DIR__)
 
   def parse do
-    @data_path
-    |> File.ls!
-    |> process_files
+    {:ok, handle} = @data_path
+      |> Path.join("main_json.zip")
+      |> File.read!
+      |> :zip.zip_open
+
+    {:ok, files} = :zip.zip_get(handle)
+
+    process_files(files)
   end
 
   defp process_files(files) do
@@ -20,10 +25,11 @@ defmodule CLDRex.Parsers.JSONParser do
 
     locale = build_locale_from_file(file)
 
-    data = @data_path
-      |> Path.join(file)
+    data = file
       |> File.read!
       |> Poison.decode!
+
+    File.rm(file)
 
     Map.put(%{}, locale, %{
       calendars: get_in(data, ~w"dates calendars"),
@@ -34,6 +40,7 @@ defmodule CLDRex.Parsers.JSONParser do
 
   defp build_locale_from_file(file) do
     file
+    |> to_string
     |> String.slice(0..-6)
     |> String.to_atom
   end
