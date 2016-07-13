@@ -1,5 +1,7 @@
 defmodule CLDRex.Formatters.NumberFormatter do
   @moduledoc false
+  import CLDRex.Utils, only: [default_decimal_format: 1]
+
   alias CLDRex.Main
   alias CLDRex.Parsers.NumberParser
 
@@ -70,8 +72,8 @@ defmodule CLDRex.Formatters.NumberFormatter do
   end
 
   defp group(locale),
-    do: get_in(Main.cldr_main_data, [locale, :numbers, :symbols, :group])
+    do: get_in(Main.cldr_main_data, [locale, :numbers, :symbols, "group"])
 
   defp decimal(locale),
-    do: get_in(Main.cldr_main_data, [locale, :numbers, :symbols, :decimal])
+    do: get_in(Main.cldr_main_data, [locale, :numbers, :symbols, "decimal"])
 end

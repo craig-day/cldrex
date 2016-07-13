@@ -37,17 +37,13 @@ defmodule CLDRex.Numbers do
   ```
 
   """
-  @spec localize(number, locale, Map.t) :: String.t
-  def localize(number, locale, options \\ %{}) do
+  @spec localize(number, locale, Keyword.t) :: String.t
+  def localize(number, locale, options \\ []) do
     locale    = normalize_locale(locale)
     fallback  = fallback(locale)
     precision = get_in(options, [:precision])
 
-    pattern = get_in(Main.cldr_main_data,
-      [locale, :numbers, :decimal_pattern])
-
-    if !pattern, do: pattern = get_in(Main.cldr_main_data,
-      [locale, :numbers, :decimal_pattern])
+    pattern = default_decimal_format(locale)
 
     NumberFormatter.format(number, pattern, locale, %{precision: precision})
   end
