@@ -46,6 +46,6 @@ defmodule CLDRex.Mixfile do
      files: ["priv", "lib", "mix.exs", "README.md", "LICENSE"],
      maintainers: ["Craig Day"],
      licenses: ["GNU GPLv3"],
-     links: %{github: "https://github.com/craig-day/cldrex"}]
+     links: %{"Github" => "https://github.com/craig-day/cldrex"}]
   end
 end
