@@ -1,4 +1,4 @@
-defmodule CLDRex.Formatters.CLDRFormatter do
+defmodule CLDRex.Formatters.CLDRDateFormatter do
   @moduledoc false
   alias CLDRex.Main
   alias CLDRex.Directive

@@ -34,9 +34,9 @@ defmodule CLDRex.Directive do
     swd_narrow:    ~w"days stand-alone narrow",
     swd_wide:      ~w"days stand-alone wide",
     swd_abrv:      ~w"days stand-alone abbreviated",
-    period_narrow: ~w"day_periods format narrow",
-    period_wide:   ~w"day_periods format wide",
-    period_abrv:   ~w"day_periods format abbreviated",
+    period_narrow: ~w"dayPeriods format narrow",
+    period_wide:   ~w"dayPeriods format wide",
+    period_abrv:   ~w"dayPeriods format abbreviated",
   ]
 
   def get(type, opts \\ []) do

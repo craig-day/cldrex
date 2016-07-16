@@ -41,20 +41,29 @@ defmodule CLDRex.Utils do
   def default_calendar(locale) do
     l = normalize_locale(locale)
 
-    CLDRex.Main.cldr_main_data
-    |> get_in([l, :calendars, "default"])
-    |> to_string
+    cal = CLDRex.Main.cldr_main_data
+      |> get_in([l, :calendars, "default"])
+      |> to_string
+
+    cal || "gregorian"
   end
 
   @doc false
   def default_date_format(locale, calendar) do
     l = normalize_locale(locale)
 
-    cal = CLDRex.Main.cldr_main_data
-      |> get_in([l, :calendars, calendar, "dateFormats", "default"])
-      |> to_string
+    CLDRex.Main.cldr_main_data
+    |> get_in([l, :calendars, calendar, "dateFormats", "default"])
+    |> to_string
+  end
 
-    cal || "gregorian"
+  @doc false
+  def default_time_format(locale, calendar) do
+    l = normalize_locale(locale)
+
+    CLDRex.Main.cldr_main_data
+    |> get_in([l, :calendars, calendar, "timeFormats", "default"])
+    |> to_string
   end
 
   @doc false

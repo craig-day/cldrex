@@ -5,7 +5,7 @@ defmodule CLDRex.Date do
   import CLDRex.Utils
 
   alias CLDRex.Main
-  alias CLDRex.Formatters.CLDRFormatter
+  alias CLDRex.Formatters.CLDRDateFormatter
 
   @type locale :: atom | String.t
   @type date :: Ecto.Date.type | Timex.Date.t | {number, number, number}
@@ -50,7 +50,7 @@ defmodule CLDRex.Date do
     f = get_in(Main.cldr_main_data,
       [locale, :calendars, cal, "dateFormats", length, "dateFormat", "pattern"])
 
-    CLDRFormatter.format(date, f, {locale, cal})
+    CLDRDateFormatter.format(date, f, {locale, cal})
   end
 
   @doc """

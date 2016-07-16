@@ -37,7 +37,7 @@ The following data from the CLDR is supported.
       - Quarters ❌
       - Day Periods ❌
   - Dates ⚡
-  - Times ❌
+  - Times ⚡
   - Numbers
       - Basic ⚡
       - Currency ❌
