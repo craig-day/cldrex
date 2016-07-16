@@ -49,7 +49,7 @@ defmodule CLDRex.Parsers.JSONParser do
     number_system = get_in(data, ~w"numbers defaultNumberingSystem")
 
     %{
-      percent_format: get_in(data, ~w"numers percentFormats percentFormatLength percentFormat pattern"),
+      percent_format: get_in(data, ~w"numbers percentFormats percentFormatLength percentFormat pattern"),
       default_number_system: number_system,
       currencies: extract_currencies(data),
       decimal_formats: get_in(data, ~w"numbers decimalFormats"),

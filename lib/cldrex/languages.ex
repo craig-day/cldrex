@@ -37,15 +37,9 @@ defmodule CLDRex.Languages do
   @spec all :: Map.t
   def all do
     Enum.reduce Main.cldr_main_data, %{}, fn(l, acc) ->
-      {locale, locale_data} = l
-
-      locale_data |> inspect |> IO.puts
-      # name = get_in(locale_data,
-      #   ["localeDisplayNames"])
-
-      # name |> inspect |> IO.puts
-
-      # Map.put(acc, locale, name)
+      {locale, data} = l
+      name = get_in(data, [:languages, to_string(locale)])
+      Map.put(acc, locale, name)
     end
   end
 
@@ -76,6 +70,6 @@ defmodule CLDRex.Languages do
   def all_for(locale) do
     locale = normalize_locale(locale)
 
-    get_in(Main.cldr_main_data, ~w"localeDisplayNames languages")
+    get_in(Main.cldr_main_data, [locale, :languages])
   end
 end

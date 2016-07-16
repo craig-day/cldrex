@@ -46,14 +46,18 @@ defmodule CLDRex.Formatters.NumberFormatter do
     |> Integer.digits
     |> Enum.reverse
     |> Enum.chunk(group_size, group_size, [])
-    |> Enum.reduce([], fn (g, acc) ->
-        part = g
-          |> Enum.reverse
-          |> Enum.join
-        Enum.concat(acc, [part])
-      end)
+    |> normalize_group
     |> Enum.reverse
     |> Enum.join(group(locale))
+  end
+
+  defp normalize_group(group) do
+    Enum.reduce group, [], fn (g, acc) ->
+      part = g
+        |> Enum.reverse
+        |> Enum.join
+      Enum.concat(acc, [part])
+    end
   end
 
   defp normalize_precision(precision, remainder) do
