@@ -59,8 +59,8 @@ defmodule CLDRex.Time do
   ## Examples
 
   ```
-  iex> CLDRex.Time.short({2016, 07, 11}, :en)
-  "7/11/2016"
+  iex> CLDRex.Time.short({17, 2, 3}, :en)
+  "5:02 PM"
   ```
 
   """
