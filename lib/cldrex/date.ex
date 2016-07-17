@@ -8,7 +8,7 @@ defmodule CLDRex.Date do
   alias CLDRex.Formatters.CLDRDateFormatter
 
   @type locale :: atom | String.t
-  @type date :: Ecto.Date.type | Timex.Date.t | {number, number, number}
+  @type date :: Date.t | {number, number, number}
 
   @doc """
   Convert the given date into the corresponding CLDR format.
@@ -43,7 +43,6 @@ defmodule CLDRex.Date do
   @spec localize(date, locale, Keyword.t) :: String.t
   def localize(date, locale, options \\ []) do
     locale   = normalize_locale(locale)
-    fallback = fallback(locale)
     cal      = get_in(options, [:calendar]) || default_calendar(locale)
     length   = get_in(options, [:length])   || default_date_format(locale, cal)
 

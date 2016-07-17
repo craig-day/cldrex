@@ -43,7 +43,6 @@ defmodule CLDRex.Time do
   @spec localize(time, locale, Keyword.t) :: String.t
   def localize(time, locale, options \\ []) do
     locale   = normalize_locale(locale)
-    fallback = fallback(locale)
     cal      = get_in(options, [:calendar]) || default_calendar(locale)
     length   = get_in(options, [:length])   || default_time_format(locale, cal)
 

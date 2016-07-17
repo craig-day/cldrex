@@ -4,13 +4,16 @@ defmodule CLDRex.Formatters.CLDRTimeFormatter do
   alias CLDRex.Directive
   alias CLDRex.Parsers.DateTimeParser
 
-  @type time :: Ecto.Time.type | {number, number, number}
+  @type time :: Time.t | {number, number, number}
   @type locale :: atom | String.t
 
   @spec format(time, String.t, {locale, atom}) :: String.t
   def format(time, format_string, context)
 
-  def format({h, m, s} = time, format_string, context),
+  def format(%Time{} = time, format_string, context),
+    do: do_format({time.hour, time.minute, time.second}, format_string, context)
+
+  def format({_h, _m, _s} = time, format_string, context),
     do: do_format(time, format_string, context)
 
   def format(_time, _format_string, _context),
@@ -36,7 +39,7 @@ defmodule CLDRex.Formatters.CLDRTimeFormatter do
 
   defp process_token(directive, _time, _context), do: directive
 
-  defp do_lookup(%Directive{date_part: date_part, cldr_attribute: cldr_attr, token: t}, {hour, minute, second}, {locale, calendar}) when cldr_attr == :numeric do
+  defp do_lookup(%Directive{date_part: date_part, cldr_attribute: cldr_attr, token: t}, {hour, minute, second}, _) when cldr_attr == :numeric do
     value = case date_part do
         :hour   -> case t do
           "h"  -> if hour > 12, do: hour - 12, else: hour
@@ -57,7 +60,7 @@ defmodule CLDRex.Formatters.CLDRTimeFormatter do
     end
   end
 
-  defp do_lookup(%Directive{date_part: date_part, cldr_attribute: cldr_attr} = directive, {hour, _m, _s}, {locale, calendar}) do
+  defp do_lookup(%Directive{cldr_attribute: cldr_attr}, {hour, _m, _s}, {locale, calendar}) do
     cldr_data = Main.cldr_main_data
       |> get_in([locale, :calendars, calendar])
       |> get_in(cldr_attr)

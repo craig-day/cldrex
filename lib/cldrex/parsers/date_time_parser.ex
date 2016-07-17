@@ -1,12 +1,12 @@
 defmodule CLDRex.Parsers.DateTimeParser do
   @moduledoc false
-  alias CLDRex.Main
   alias CLDRex.Directive
 
-
-  @cldr_chars ~r/\A[yYuUrRMLwWdDFgEecabhHKkmsSA]+/
+  @cldr_chars ~r/\A([yYuUrRMLwWdDFgEecabhHKkmsSA]+|'\w+')/
 
   @rules [
+    # Literal token
+    {~r/'\w+'/,      Directive.get(:literal)},
     # Year
     {~r/[yur]{3,}/i, Directive.get(:year, zero_padding: true, date_part: :year)},
     {~r/[yur]{2}/i,  Directive.get(:year2, date_part: :year)},
@@ -81,7 +81,7 @@ defmodule CLDRex.Parsers.DateTimeParser do
       matches ->
         match = Enum.at(matches, 0)
         remaining = format_string
-          |> String.split(match)
+          |> String.split(match, parts: 2)
           |> Enum.at(1)
 
         {match, remaining}
@@ -101,7 +101,7 @@ defmodule CLDRex.Parsers.DateTimeParser do
   defp match_rule(token) do
     case Enum.find(@rules, fn ({r, _}) -> token =~ r end) do
       nil    -> token
-      {r, d} -> %{d | token: token}
+      {_r, d} -> %{d | token: token}
     end
   end
 end

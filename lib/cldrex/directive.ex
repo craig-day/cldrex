@@ -13,7 +13,7 @@ defmodule CLDRex.Directive do
 
   @base_types [:year, :year2, :month, :week, :mweek, :day, :yday, :dwday,
     :mjday, :week_day, :hour12, :hour24, :minute, :second, :fsecond,
-    :millisecond]
+    :millisecond, :literal]
 
   @cldr_mapped_types [
     month_narrow:  ~w"months format narrow",
