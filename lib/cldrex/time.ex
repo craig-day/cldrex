@@ -8,7 +8,7 @@ defmodule CLDRex.Time do
   alias CLDRex.Formatters.CLDRTimeFormatter
 
   @type locale :: atom | String.t
-  @type time :: Ecto.Time.type | {number, number, number}
+  @type time :: Time.t | {number, number, number}
 
   @doc """
   Convert the given time into the corresponding CLDR format.
@@ -23,6 +23,14 @@ defmodule CLDRex.Time do
       - `short`
 
   ## Examples
+
+  ```
+  iex> {date, time} = :calendar.universal_time
+  {{2016, 7, 17}, {9, 38, 43}}
+
+  iex> CLDRex.Time.localize(time, :en)
+  "9:38:43 PM"
+  ```
 
   ```
   iex> CLDRex.Time.localize({1, 2, 3}, :en)

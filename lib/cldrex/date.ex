@@ -25,13 +25,16 @@ defmodule CLDRex.Date do
   ## Examples
 
   ```
-  iex> CLDRex.Date.localize({2016, 07, 11}, :en)
-  "Monday, July 11, 2016"
+  iex> {date, time} = :calendar.universal_time
+  {{2016, 7, 17}, {9, 38, 43}}
+
+  iex> CLDRex.Date.localize(date, :en)
+  "Sunday, July 17, 2016"
   ```
 
   ```
-  iex> CLDRex.Date.localize(Timex.Date.today, :fr)
-  "lundi 11 juillet 2016"
+  iex> CLDRex.Date.localize({2016, 07, 11}, :en)
+  "Monday, July 11, 2016"
   ```
 
   ```
